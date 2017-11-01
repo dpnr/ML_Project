@@ -42,7 +42,7 @@ def simplePerceptron(n):
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
     ##generate the results for the dataset
-    generate.values(train,'data-splits/data.eval.anon',False)
+    generate.values(train,'data-splits/data.eval.anon',False,"simplePerceptron")
     predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for simple perceptron on Test set is %.2f"%(accuracy))
@@ -53,12 +53,13 @@ def dynamicPerceptron(n_dynamic):
     accuracies_dynamic = {}
     weights_dynamic = {}
     bias_dynamic = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['phishing.train']),True)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),True)
 
     for i in range(0,20):
         
         train.runtraining(n_dynamic/(1+i)) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'phishing.dev',False)
+
+        predictionResults = prediction.getprediction(train,'data-splits/data.train',False)
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_dynamic[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
@@ -79,8 +80,8 @@ def dynamicPerceptron(n_dynamic):
     train.bias = optimal_bias
 
 
-    
-    predictionResults = prediction.getprediction(train,'phishing.test',False)
+    generate.values(train,'data-splits/data.eval.anon',False,"dynamicPerceptron")
+    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for dynamic learning rate on Test set is %.2f"%(accuracy))
 
@@ -90,12 +91,12 @@ def marginPerceptron(n_margin_n,n_margin_m):
     accuracies_margin = {}
     weights_margin = {}
     bias_margin = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['phishing.train']),False)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
 
     for i in range(0,20):
         
         train.runtraining_margin(n_margin_n,n_margin_m) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'phishing.dev',False)
+        predictionResults = prediction.getprediction(train,'data-splits/data.train',False)
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_margin[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
@@ -113,7 +114,8 @@ def marginPerceptron(n_margin_n,n_margin_m):
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
 
-    predictionResults = prediction.getprediction(train,'phishing.test',False)
+    generate.values(train,'data-splits/data.eval.anon',False,"marginPerceptron")
+    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for Margin Perceptron on Test set is %.2f"%(accuracy))
 
@@ -123,12 +125,12 @@ def averagePerceptron(n_avg):
     accuracies_avg = {}
     weights_avg = {}
     bias_avg = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['phishing.train']),False)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
 
     for i in range(0,20):
     
         train.runtraining_average(n_avg) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'phishing.dev',True) ## BUG MAKE IT true for getting the average 
+        predictionResults = prediction.getprediction(train,'data-splits/data.train',True) ## BUG MAKE IT true for getting the average 
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_avg[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
@@ -145,7 +147,8 @@ def averagePerceptron(n_avg):
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
 
-    predictionResults = prediction.getprediction(train,'phishing.test',True)  ## BUG MAKE IT true for getting the average 
+    generate.values(train,'data-splits/data.eval.anon',False,"averagePerceptron")
+    predictionResults = prediction.getprediction(train,'data-splits/data.test',True)  ## BUG MAKE IT true for getting the average 
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for Average perceptron on Test set is %.2f"%(accuracy))
 
@@ -156,12 +159,12 @@ def aggressivePerceptron(n_agg):
     accuracies_agg = {}
     weights_agg = {}
     bias_agg = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['phishing.train']),False)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
 
     for i in range(0,20):
         
         train.runtraining_aggressive(n_agg) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'phishing.dev',False) ## BUG MAKE IT true for getting the average 
+        predictionResults = prediction.getprediction(train,'data-splits/data.train',False) ## BUG MAKE IT true for getting the average 
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_agg[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
@@ -178,7 +181,7 @@ def aggressivePerceptron(n_agg):
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
 
-    
-    predictionResults = prediction.getprediction(train,'phishing.test',False)  ## BUG MAKE IT true for getting the average 
+    generate.values(train,'data-splits/data.eval.anon',False,"aggressivePerceptron")
+    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)  ## BUG MAKE IT true for getting the average 
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for Aggressive perceptron on Test set is %.2f"%(accuracy))

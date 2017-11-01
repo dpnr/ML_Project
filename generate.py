@@ -1,9 +1,17 @@
-def values(trainclass,filename,average):
+def values(trainclass,filename,average,saveIn):
 
-    eval_output = open('data.eval.result.id','w')
+    eval_output = open('results/'+ saveIn+'.csv','w')
+    headers = "Id,Prediction\n"
+    eval_output.write(headers)
+
+    evalIds = []
+    with open('data-splits/data.eval.id') as file:
+        data = file.read().split('\n')
+        evalIds = data
+        
 
     with open(filename) as testfile:
-        for line in testfile:
+        for indexmain, line in enumerate(testfile):
             terms =line.split()
             true_label = float(terms[0])
             xvector = {}
@@ -38,7 +46,9 @@ def values(trainclass,filename,average):
 
             if(result >= 0):
                 #change the weight vector to w+yx
-                print >>eval_output, 1
+                row = str(evalIds[indexmain]) + ",1\n"
+                eval_output.write(row)
             else:
-                print >>eval_output, 0
+                row = str(evalIds[indexmain]) + ",0\n"
+                eval_output.write(row)
     

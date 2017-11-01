@@ -60,7 +60,7 @@ def crossvalidation():
 def crossvalidation_dynamic():
     print("\n##### Running Cross Validation for the Dynamic Perceptron #####\n" )
     results = {}
-    trainfiles = ['CVSplits/training00.data','CVSplits/training01.data','CVSplits/training02.data','CVSplits/training03.data','CVSplits/training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -78,7 +78,7 @@ def crossvalidation_dynamic():
             train = Perceptron.simplePerceptron(dataset,False)
             for i in range(0,10):
                 train.runtraining(value/(1+i))
-                predictionResults = prediction.getprediction(train,'phishing.dev',False)
+                predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
                 accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
                   
             crossValidations.append(accuracy)
@@ -101,7 +101,7 @@ def crossvalidation_margin():
     print("\n##### Running Cross Validation for the Margin Perceptron #####\n" )
     results = {}
     margins = [1,0.1,0.01]
-    trainfiles = ['CVSplits/training00.data','CVSplits/training01.data','CVSplits/training02.data','CVSplits/training03.data','CVSplits/training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -120,7 +120,7 @@ def crossvalidation_margin():
                 train = Perceptron.simplePerceptron(dataset,False)
                 for i in range(0,10):
                     train.runtraining_margin(value,margin) 
-                    predictionResults = prediction.getprediction(train,'phishing.dev',False)
+                    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
                     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
                 
                 crossValidations.append(accuracy)
@@ -142,7 +142,7 @@ def crossvalidation_margin():
 def crossvalidation_avg():
     print("\n##### Running Cross Validation for the Average Perceptron #####\n" )
     results = {'1':0,'0.1':0,'0.01':0}
-    trainfiles = ['CVSplits/training00.data','CVSplits/training01.data','CVSplits/training02.data','CVSplits/training03.data','CVSplits/training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -160,7 +160,7 @@ def crossvalidation_avg():
             train = Perceptron.simplePerceptron(dataset,False)
             for i in range(0,10):
                 train.runtraining_average(value)
-                predictionResults = prediction.getprediction(train,'phishing.dev',True)
+                predictionResults = prediction.getprediction(train,'data-splits/data.test',True)
                 accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
                 
             crossValidations.append(accuracy)
@@ -180,7 +180,7 @@ def crossvalidation_avg():
 def crossvalidation_aggressive():
     print("\n##### Running Cross Validation for the Aggressive Perceptron #####\n" )
     results = {'1':0,'0.1':0,'0.01':0}
-    trainfiles = ['CVSplits/training00.data','CVSplits/training01.data','CVSplits/training02.data','CVSplits/training03.data','CVSplits/training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -198,7 +198,7 @@ def crossvalidation_aggressive():
             train = Perceptron.simplePerceptron(dataset,False)
             for i in range(0,10):
                 train.runtraining_aggressive(value)
-                predictionResults = prediction.getprediction(train,'phishing.dev',False)
+                predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
                 accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
             
             crossValidations.append(accuracy)

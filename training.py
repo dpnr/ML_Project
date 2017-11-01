@@ -47,7 +47,9 @@ def getfeedback_margin(line,train,r,margin):
     #we need to calculate y(wx+b) value
     terms = line.split()
     y= float(terms[0])
-    
+    if(y == 0.0):
+        y = -1.0
+
     xvector = {}
     wx = 0.0
     weights =train.getWeights()
@@ -86,7 +88,9 @@ def getfeedback_average(line,train,r):
     #we need to calculate y(wx+b) value
     terms = line.split()
     y= float(terms[0])
-    
+    if(y == 0.0):
+        y = -1.0
+
     xvector = {}
     wx = 0.0
     weights =train.getWeights()
@@ -131,7 +135,8 @@ def getfeedback_aggressive(line,train,mu):
     #we need to calculate y(wx+b) value
     terms = line.split()
     y= float(terms[0])
-    
+    if(y == 0.0):
+        y = -1.0
     xvector = {}
     wx = 0.0
     xtx = 0.0
