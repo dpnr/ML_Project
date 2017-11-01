@@ -10,7 +10,8 @@ def getData(filenames):
     for filename in filenames:
         with open(filename) as train_file:
             for line in train_file:
-                data.append(line)
+                if(line != '\n'):
+                    data.append(line)
     
     return data
 

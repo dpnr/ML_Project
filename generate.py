@@ -1,13 +1,11 @@
-import getNumber
+def values(trainclass,filename,average):
 
-def getprediction(trainclass,filename,average):
-    prediction= {"correct":0,"wrong":0}
+    eval_output = open('data.eval.result.id','w')
+
     with open(filename) as testfile:
         for line in testfile:
             terms =line.split()
             true_label = float(terms[0])
-            if(true_label == 0.0):
-                true_label = -1.0
             xvector = {}
             wx = 0.0
             if(average==False):
@@ -36,11 +34,11 @@ def getprediction(trainclass,filename,average):
                     trainclass.updateAvgWeight(key,getNumber.getRandom())
                 wx += float(weights[key])*float(xvector[key])
 
-            result = true_label*(wx+bias)
+            result = (wx+bias)
 
-            if(result<0):
+            if(result >= 0):
                 #change the weight vector to w+yx
-                prediction['wrong'] +=1
+                print >>eval_output, 1
             else:
-                prediction['correct'] +=1
-    return prediction
+                print >>eval_output, 0
+    

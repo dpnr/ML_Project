@@ -4,7 +4,10 @@ def getfeedback(line,train,r):
     #get a random value from -0.01 to 0.01
     #we need to calculate y(wx+b) value
     terms = line.split()
+    
     y= float(terms[0])
+    if(y == 0.0):
+        y = -1.0
     
     xvector = {}
     wx = 0.0
@@ -12,6 +15,7 @@ def getfeedback(line,train,r):
     weight_indexes = weights.keys()[:]
     for index,term in enumerate(terms):
         if(index!=0):
+            
             key = term[:term.index(':')]
             value = term[term.index(":")+1:]
             xvector[key] = value

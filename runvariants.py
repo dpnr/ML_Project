@@ -2,6 +2,7 @@
 import getNumber
 import prediction
 import Perceptron
+import generate
 
 
 
@@ -21,10 +22,10 @@ def simplePerceptron(n):
     accuracies_simple = {}
     weights_simple = {}
     bias_simple = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['phishing.train']),False)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
     for i in range(0,20):
         train.runtraining(n) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'phishing.dev',False)
+        predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_simple[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
@@ -33,15 +34,16 @@ def simplePerceptron(n):
 
     max_acc_index = getNumber.getKey(accuracies_simple, max(accuracies_simple.values()))
     print('Total number of updates the learning algorithm performs on the training set is %d'%(train.updates))
-    print('Development Set accuracy is %.2f'%(max(accuracies_simple.values())))
+    print('Test Set accuracy is %.2f'%(max(accuracies_simple.values())))
     optimal_weights = weights_simple[max_acc_index]
     optimal_bias = bias_simple[max_acc_index]
     #assign the optimal weights and bias to the classifier trained
     for key in optimal_weights:
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
-
-    predictionResults = prediction.getprediction(train,'phishing.test',False)
+    ##generate the results for the dataset
+    generate.values(train,'data-splits/data.eval.anon',False)
+    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)
     accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
     print("optimal accuracy for simple perceptron on Test set is %.2f"%(accuracy))
 
