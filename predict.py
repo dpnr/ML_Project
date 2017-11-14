@@ -20,11 +20,11 @@ def predict(item,tree,attr):
     elif(tree.label in ['+','-'] and len(tree.getChildren()) != 1):
         return tree.label
 
-    elif(tree.value in ['last_even'] and len(tree.getChildren())<2 ):
+    elif(tree.value in ['4'] and len(tree.getChildren())<2 ):
         
         if(tree.label not in ['+','-']):
             for child in tree.getChildren()[:]:
-                if(child.value in ['alphabet','first_same','complete']):
+                if(child.value in ['1','4','complete']):
                     testing[child.value] += 1
                 else:
                     testing['undefined'] += 1
@@ -73,8 +73,8 @@ def getAccuracy(dataset,tree):
         else:
             prediction['wrong'] += 1
 
-    # print(count)
-    # print(prediction)
+    print(count)
+    print(prediction)
     
     accuracy = ((prediction['correct']+0.0)/(prediction['correct']+prediction['wrong']))*100
    

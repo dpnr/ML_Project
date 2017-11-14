@@ -9,8 +9,30 @@ def getData(filenames):
                 data.append(line)
     
             for ele in data:
-                return_dataset.append({"name":ele[2:-1], "result":ele[0:1]})
+                entry = {"result":float(ele[0:1])}
+                features = ele[2:].split()
+                for value in features:
+                    entry[value[:value.index(':')]] = float(value[ value.index(':')+1 :])
+                return_dataset.append(entry)
+
+    return return_dataset
+
+def reg_getData(filenames):
+    data= []
+    return_dataset= []
+    for filename in filenames:
+        with open(filename) as train_file:
+            for line in train_file:
+                data.append(line)
     
+            for ele in data:
+                if(len(ele)>3):
+                    entry = {"result":ele[0:1]}
+                    features = ele[2:].split()
+                    for value in features:
+                        entry[value[:value.index(':')]] = value[ value.index(':')+1 :]
+                    return_dataset.append(entry)
+
     return return_dataset
 
 def standard_deviation(values):

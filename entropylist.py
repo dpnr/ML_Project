@@ -2,6 +2,8 @@
 
 
 def getSortedEnt(entropy):
+    # print "here is the entropy"
+    # print entropy
     presentvalue = min(entropy.values())
     keys = entropy.keys()[:]
     values = entropy.values()[:]
@@ -38,4 +40,5 @@ def getEntLimiting(entropy,num):
         entropy_limited[entropy.keys()[index]] = 'complete'
        
         return entropy_limited
+
     return getSortedEnt(entropy_limited)

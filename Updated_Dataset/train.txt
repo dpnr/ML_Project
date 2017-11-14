@@ -1,0 +1,11 @@
++ Paritosh Pandya
+- Douglas T. Ross
++ David Karger
++ Lance Fortnow
++ Dines Bjørner
+- Thomas E. Kurtz
++ Robert Floyd
+- John C. Reynolds
+- Joseph F Traub
+- Cliff Shaw
+- Scott Fahlman
