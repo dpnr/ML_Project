@@ -154,22 +154,24 @@ def averagePerceptron(n_avg):
 
 #AGGRESSIVE PERCEPTRON
 
-def aggressivePerceptron(n_agg):
+def aggressivePerceptron(n_agg,trainData):
     print('\n#####Running Aggressive Perceptron#####\n')
     accuracies_agg = {}
     weights_agg = {}
     bias_agg = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
+    train = Perceptron.simplePerceptron(trainData,False)
 
     for i in range(0,20):
         
         train.runtraining_aggressive(n_agg) #from the cross validation I got 0.1 as my optimal value for the learning rate
-        predictionResults = prediction.getprediction(train,'data-splits/data.train',False) ## BUG MAKE IT true for getting the average 
+        predictionResults = prediction.getprediction([train],'data-splits/data.test.log',False) ## BUG MAKE IT true for getting the average 
         accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
         accuracies_agg[i]=accuracy
         print('Epoch %d Accuracy = %.2f'%(i+1,accuracy))
         weights_agg[i]=train.getWeights()
         bias_agg[i]=train.getbias()
+
+    
     
     max_acc_index = getNumber.getKey(accuracies_agg,max(accuracies_agg.values()))
     print('Total number of updates the learning algorithm performs on the training set is %d'%(train.updates))
@@ -181,7 +183,9 @@ def aggressivePerceptron(n_agg):
         train.updateWeight(key,optimal_weights[key])
     train.bias = optimal_bias
 
-    generate.values(train,'data-splits/data.eval.anon',False,"aggressivePerceptron")
-    predictionResults = prediction.getprediction(train,'data-splits/data.test',False)  ## BUG MAKE IT true for getting the average 
-    accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
-    print("optimal accuracy for Aggressive perceptron on Test set is %.2f"%(accuracy))
+    return train
+
+    # generate.values(train,'data-splits/data.eval.anon',False,"aggressivePerceptron")
+    # predictionResults = prediction.getprediction(train,'data-splits/data.test',False)  ## BUG MAKE IT true for getting the average 
+    # accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
+    # print("optimal accuracy for Aggressive perceptron on Test set is %.2f"%(accuracy))

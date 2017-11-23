@@ -4,7 +4,8 @@ import prediction
 import validation
 import Perceptron
 import runvariants
-
+import random
+import generate
 
 
 #Uncomment the below for running the cross validation
@@ -52,10 +53,46 @@ import runvariants
 
 
 
-n_agg = validation.crossvalidation_aggressive()
-print "Best mu value is %.3f"%(n_agg)
+# n_agg = validation.crossvalidation_aggressive()
+# print "Best mu value is %.3f"%(n_agg)
 
-runvariants.aggressivePerceptron(n_agg)
+
+##implementing bagging
+
+dataset = getNumber.getData(['data-splits/data.train.log'])
+
+## lets create m datasets each having 60% of total datasets
+classifiers = []
+for m in range(0,100):
+    sample = [] 
+    
+    
+    while(len(sample) < 0.6*len(dataset)):
+        randomindex = random.randrange(len(dataset))
+        sample.append(dataset[randomindex])
+
+
+
+    ##send the sample as the train data to the classifier
+    classifier = runvariants.aggressivePerceptron(1,sample)
+    classifiers.append(classifier)
+
+##### lets run the prediction from here
+
+    
+    
+
+print "datasets created and classifiers created"
+
+###lets get the predictions here
+
+predictionResults = prediction.getprediction(classifiers,'data-splits/data.test.log',False)  ## MAKE IT true for getting the average 
+print predictionResults
+accuracy = predictionResults['correct']*100.0/(predictionResults['wrong'] + predictionResults['correct'])
+print("optimal accuracy for Aggressive perceptron on Test set is %.2f"%(accuracy))
+generate.values_bagging(classifiers,'data-splits/data.eval.anon.log',False,"aggressivePerceptron_bagging_log1")
+
+# runvariants.aggressivePerceptron(n_agg)
 
 
 
