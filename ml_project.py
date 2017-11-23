@@ -4,6 +4,7 @@ import prediction
 import validation
 import Perceptron
 import runvariants
+import convert
 
 
 
@@ -17,11 +18,16 @@ import runvariants
 
 #SIMPLE PERCEPTRON
 
-# datatset = getNumber.getData(['training01.data','training02.data','training03.data','training04.data'])
+datatset = getNumber.getData(['training01.data','training02.data','training03.data','training04.data'])
 # print datatset
-# n = validation.crossvalidation()
-# print "Best learning rate is %.3f"%(n)
-# runvariants.simplePerceptron(n)
+
+for filename in ['training00.data','training01.data','training02.data','training03.data','training04.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
+    convert.convertFile(filename,".".join([filename,"nor"]))
+
+n = validation.crossvalidation()
+n_svm_r = float(n[:n.index(" ")])
+n_svm_c = float(n[n.index(" ")+1:])
+runvariants.svm(n_svm_r,n_svm_c)
 
 
 # #DYNAMIC LEARNING RATE 
@@ -41,9 +47,9 @@ import runvariants
 
 #AVERAGE
 
-n_avg = validation.crossvalidation_avg()
-print "Best learning rate is %.3f"%(n_avg)
-runvariants.averagePerceptron(n_avg)
+# n_avg = validation.crossvalidation_avg()
+# print "Best learning rate is %.3f"%(n_avg)
+# runvariants.averagePerceptron(n_avg)
 
 
 

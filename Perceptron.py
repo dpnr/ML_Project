@@ -19,18 +19,21 @@ class simplePerceptron:
     def runtraining(self,r):
         for line in self.trainingdata:
             training.getfeedback(line,self,r)
-
-    def runtraining_margin(self,r,margin):
+    def runtraining_svm(self,r,c):
         for line in self.trainingdata:
-            training.getfeedback_margin(line,self,r,margin)
+            training.getfeedback(line,self,r,c)
+
+    # def runtraining_margin(self,r,margin):
+    #     for line in self.trainingdata:
+    #         training.getfeedback_margin(line,self,r,margin)
     
-    def runtraining_average(self,r):
-        for line in self.trainingdata:
-            training.getfeedback_average(line,self,r)
+    # def runtraining_average(self,r):
+    #     for line in self.trainingdata:
+    #         training.getfeedback_average(line,self,r)
 
-    def runtraining_aggressive(self,r):
-        for line in self.trainingdata:
-            training.getfeedback_aggressive(line,self,r)
+    # def runtraining_aggressive(self,r):
+    #     for line in self.trainingdata:
+    #         training.getfeedback_aggressive(line,self,r)
             
     
     def updateWeight(self,key,value):
