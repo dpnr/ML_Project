@@ -125,7 +125,7 @@ def averagePerceptron(n_avg):
     accuracies_avg = {}
     weights_avg = {}
     bias_avg = {}
-    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train']),False)
+    train = Perceptron.simplePerceptron(getNumber.getData(['data-splits/data.train','data-splits/data.test']),False)
 
     for i in range(0,20):
     
