@@ -80,11 +80,22 @@ def getAccuracy(dataset,tree):
     return accuracy
 
 
-def getAccuracy_trees(dataset,trees):
+def getAccuracy_trees(dataset,trees,filename,generate):
+    
+    eval_output = open('results/'+ 'DT_bagging'+'.csv','w')
+    headers = "Id,Prediction\n"
+    eval_output.write(headers)
 
     count = {"-":0,"+":0,"undefined":0}
     prediction = {"correct":0,"wrong":0}
-    svm_output = open('decisionTrees_svm.input','w')
+    svm_output = open(filename,'w')
+    evalIds = []
+    with open('data-splits/data.eval.id') as file:
+        data = file.read().split('\n')
+        evalIds = data
+    
+    print 'IDS'
+    print len(evalIds)
     
 
     for index,item in enumerate(dataset):
@@ -122,7 +133,17 @@ def getAccuracy_trees(dataset,trees):
         if(item['result']==predicted_label):
             prediction['correct'] += 1
         else:
-            prediction['wrong'] += 1      
+            prediction['wrong'] += 1     
+
+        if(generate == True):
+            if(predicted_label == "+"):
+                #change the weight vector to w+yx
+                row = str(evalIds[index]) + ",1\n"
+                eval_output.write(row)
+            else:
+                row = str(evalIds[index]) + ",0\n"
+                eval_output.write(row)
+
         
     print(count)
     print(prediction)

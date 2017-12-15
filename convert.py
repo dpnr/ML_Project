@@ -43,10 +43,8 @@ def writeTo(outputFile,inputfile,avg):
                 
                 if(float(items[1])>avg_value):
                     sym = "+"
-                else:
-                    sym = "-"
-                this_value = "".join([str(items[0]),":",sym])
-                row.append(this_value)
+                    this_value = "".join([str(items[0]),":",sym])
+                    row.append(this_value)
         row.sort()
         print >>output," ".join(row)
         

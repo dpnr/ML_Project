@@ -27,7 +27,7 @@ def reg_getData(filenames):
                 data.append(line)
             
         for ele in data:
-            if(len(ele)>3):
+            if(len(ele)>1):
                 entry = {"result":ele[0:1]}
                 features = ele[2:].split()
                 for value in features:

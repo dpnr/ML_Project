@@ -101,7 +101,7 @@ def buildtree(node,root):
         # print(node.value)
         return Node.Node(node.value,[],[],target,node,majority(node),sorted_entropy)
     else:
-       for index,value in enumerate(getValues(node.getDataset(),node.value)):
+       for index,value in enumerate(['+','-']):
                 tree = buildtree(Node.Node(sorted_entropy[node.value],dataset_node[value],[],value,node,'',sorted_entropy),'')
                 node.addChild(tree)
             
