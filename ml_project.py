@@ -17,14 +17,14 @@ import convert
 
 
 #SIMPLE PERCEPTRON
-
-datatset = getNumber.getData(['training01.data','training02.data','training03.data','training04.data'])
+n = validation.crossvalidation()
+datatset = getNumber.getData(['training01.data','training02.data','training03.data'])
 # print datatset
 
-for filename in ['training00.data','training01.data','training02.data','training03.data','training04.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
+for filename in ['training00.data','training01.data','training02.data','training03.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
     convert.convertFile(filename,".".join([filename,"nor"]))
 
-n = validation.crossvalidation()
+
 n_svm_r = float(n[:n.index(" ")])
 n_svm_c = float(n[n.index(" ")+1:])
 runvariants.svm(n_svm_r,n_svm_c)

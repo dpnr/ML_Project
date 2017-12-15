@@ -6,18 +6,18 @@ def crossvalidation():
 
     dataSplits = []
     ##lets split the training file into 5 parts
-    # with open('data-splits/data.train','r') as file:
-    #     data = file.read().split('\n')
-    #     chunk = len(data)/5
-    #     for i in range(0,5):
-    #         if(i!=4):
-    #           thisChunk = data[i*chunk:(i+1)*chunk]
-    #         else:
-    #           thisChunk = data[i*chunk:]
-    #         #wirte into a file
-    #         output = open('training0'+str(i)+'.data','w')
-    #         for line in thisChunk:
-    #             print >>output, line
+    with open('data-splits/data.train','r') as file:
+        data = file.read().split('\n')
+        chunk = len(data)/5
+        for i in range(0,5):
+            if(i!=4):
+              thisChunk = data[i*chunk:(i+1)*chunk]
+            else:
+              thisChunk = data[i*chunk:]
+            #wirte into a file
+            output = open('training0'+str(i)+'.data','w')
+            for line in thisChunk:
+                print >>output, line
 
     
     
@@ -26,7 +26,7 @@ def crossvalidation():
     print("\n##### Running Cross Validation for the SVM #####\n" )
     results = {}
     margins = [1,0.1,0.01]
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
