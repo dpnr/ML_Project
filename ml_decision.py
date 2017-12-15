@@ -11,7 +11,7 @@ import convert
 
 ## reading the training the data
 
-convert.convertFile('data-splits/data.test')
+convert.convertFile('data-splits/data.train')
 
 train_dataset = dataoperations.reg_getData(['output.test'])
 reg_traindataset = dataoperations.getData(['data-splits/data.test'])
@@ -20,23 +20,24 @@ reg_traindataset = dataoperations.getData(['data-splits/data.test'])
 
 ## adding the features to the dataset
 
-#train_dataset = features.addFeatures(train_dataset) features already present
+# train_dataset = features.addFeatures(train_dataset)# features already present
 
 # print("dataset with features looks like")
 # print(train_dataset)
 ## calculating entropy for every attribute
- 
-entropy = Buildtree.calculateEntropy(reg_traindataset,0)
 
-print "entropy is"
-print entropy
+entropy = Buildtree.calculateEntropy(reg_traindataset,7)
+
 
 attributes = entropy.keys()
 
-
-# test_dataset = dataoperations.getData(['data-splits/data.test'])
+convert.convertFile('data-splits/data.test')
+test_dataset = dataoperations.reg_getData(['output.test'])
 
 # # test_dataset = features.addFeatures(test_dataset)
+convert.convertFile('data-splits/data.eval.anon')
+anon_dataset = dataoperations.reg_getData(['output.test'])
+
 
 
 tree = Buildtree.buildtree(Node.Node(' ',train_dataset,attributes," "," ",'',entropy),'')
@@ -46,14 +47,19 @@ tree = Buildtree.buildtree(Node.Node(' ',train_dataset,attributes," "," ",'',ent
 # tree.displayNode(tree)
 
 
+
 # # ## prediction 
 
-print("\n\n########################## Accuracy on train Data #########################\n")
+print("\n\n########################## Accuracy on train Data of depth"+str(7) +"#########################\n")
 print(predict.getAccuracy(train_dataset,tree))
 
 
-# print("\n\n########################## Accuracy on test Data #########################\n")
-# print(predict.getAccuracy(test_dataset,tree))
+print("\n\n########################## Accuracy on test Data of depth"+str(7) +"#########################\n")
+print(predict.getAccuracy(test_dataset,tree))
+
+
+print("\n\n########################## Accuracy on anon Data of depth"+str(7) +"#########################\n")
+print(predict.getAccuracy(anon_dataset,tree))
 
 # print("\n\n########################## cross accuracy #########################\n")
 

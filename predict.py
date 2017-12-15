@@ -14,10 +14,11 @@ def predict(item,tree,attr):
     ##traverse through tree till you find a bucket with label
     if(len(tree.getChildren()) == 1):
         child = tree.getChildren()[:]
-
-        return child[0].label
+        label = Buildtree.majority(tree)
+        return label
 
     elif(tree.label in ['+','-'] and len(tree.getChildren()) != 1):
+        
         return tree.label
 
     elif(tree.value in ['4'] and len(tree.getChildren())<2 ):
@@ -56,23 +57,42 @@ def predict(item,tree,attr):
     return result              
 
 def getAccuracy(dataset,tree):
+    
+    eval_output = open('results/decisionTree.csv','w')
+    headers = "Id,Prediction\n"
+    eval_output.write(headers)
+
+    evalIds = []
+    with open('data-splits/data.eval.id') as file:
+        data = file.read().split('\n')
+        evalIds = data
+
+
     count = {"-":0,"+":0,"undefined":0}
     prediction = {"correct":0,"wrong":0}
-    for item in dataset:
-        test=predict(item,tree,tree.entropy['best'])
-        if(test == "-"):
-            count['-'] += 1
-        elif(test == "+"):
-            count['+'] += 1
-        else:
+    for index,item in enumerate(dataset):
+        try:
+            test=predict(item,tree,tree.entropy['best'])
             
-            count['undefined'] += 1
-        
-        if(item['result']==test):
-            prediction['correct'] += 1
-        else:
-            prediction['wrong'] += 1
 
+            if(test == "-"):
+                row = str(evalIds[index]) + ",0\n"
+                count['-'] += 1
+            elif(test == "+"):
+                row = str(evalIds[index]) + ",1\n"
+                count['+'] += 1
+            else:
+                
+                count['undefined'] += 1
+            
+            if(item['result']==test):
+                prediction['correct'] += 1
+            else:
+                prediction['wrong'] += 1
+
+            eval_output.write(row)
+        except:
+            pass
     print(count)
     print(prediction)
     
