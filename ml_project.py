@@ -33,11 +33,11 @@ import convert
 
 # #MARGIN PERCEPTRON 
 
-# n_margin = validation.crossvalidation_margin()
-# print "Best learning rate is %s and margin is %s"%(n_margin[:n_margin.index(" ")],n_margin[n_margin.index(" ")+1:])
-# n_margin_n = float(n_margin[:n_margin.index(" ")])
-# n_margin_m = float(n_margin[n_margin.index(" ")+1:])
-# runvariants.marginPerceptron(n_margin_n,n_margin_m)
+n_margin = validation.crossvalidation_margin()
+print "Best learning rate is %s and margin is %s"%(n_margin[:n_margin.index(" ")],n_margin[n_margin.index(" ")+1:])
+n_margin_n = float(n_margin[:n_margin.index(" ")])
+n_margin_m = float(n_margin[n_margin.index(" ")+1:])
+runvariants.marginPerceptron(n_margin_n,n_margin_m)
 
 
 #AVERAGE
@@ -50,14 +50,19 @@ import convert
 
 #AGRRESSIVE
 
-for filename in ['training00.data','training01.data','training02.data','training03.data','training04.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
-    convert.convertFile_log(filename,".".join([filename,"log"]))
+# for filename in ['training00.data','training01.data','training02.data','training03.data','training04.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
+#     convert.convertFile_log(filename,".".join([filename,"log"]))
 
 
-# n_agg = validation.crossvalidation_aggressive()
-# print "Best mu value is %.3f"%(n_agg)
+# convertFile_scale
 
-# runvariants.aggressivePerceptron(n_agg)
+# for filename in ['training00.data','training01.data','training02.data','training03.data','training04.data','data-splits/data.train','data-splits/data.test','data-splits/data.eval.anon']:
+#     convert.convertFile_scale(filename,".".join([filename,"scale"]))
+
+n_agg = validation.crossvalidation_aggressive()
+print "Best mu value is %.3f"%(n_agg)
+
+runvariants.aggressivePerceptron(n_agg)
 
 
 

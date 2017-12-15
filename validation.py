@@ -5,23 +5,23 @@ import prediction
 def crossvalidation():
 
     dataSplits = []
-    ##lets split the training file into 5 parts
-    # with open('data-splits/data.train','r') as file:
-    #     data = file.read().split('\n')
-    #     chunk = len(data)/5
-    #     for i in range(0,5):
-    #         if(i!=4):
-    #           thisChunk = data[i*chunk:(i+1)*chunk]
-    #         else:
-    #           thisChunk = data[i*chunk:]
-    #         #wirte into a file
-    #         output = open('training0'+str(i)+'.data','w')
-    #         for line in thisChunk:
-    #             print >>output, line
+    #lets split the training file into 5 parts
+    with open('data-splits/data.train','r') as file:
+        data = file.read().split('\n')
+        chunk = len(data)/5
+        for i in range(0,5):
+            if(i!=4):
+              thisChunk = data[i*chunk:(i+1)*chunk]
+            else:
+              thisChunk = data[i*chunk:]
+            #wirte into a file
+            output = open('training0'+str(i)+'.data','w')
+            for line in thisChunk:
+                print >>output, line
 
     print("\n##### Running Cross Validation for the Simple Perceptron #####\n" )
     results = {'1':0,'0.1':0,'0.01':0}
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data' ]
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -60,7 +60,7 @@ def crossvalidation():
 def crossvalidation_dynamic():
     print("\n##### Running Cross Validation for the Dynamic Perceptron #####\n" )
     results = {}
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data' ]
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -98,10 +98,23 @@ def crossvalidation_dynamic():
 
 
 def crossvalidation_margin():
+    with open('data-splits/data.train','r') as file:
+        data = file.read().split('\n')
+        chunk = len(data)/5
+        for i in range(0,5):
+            if(i!=4):
+              thisChunk = data[i*chunk:(i+1)*chunk]
+            else:
+              thisChunk = data[i*chunk:]
+            #wirte into a file
+            output = open('training0'+str(i)+'.data','w')
+            for line in thisChunk:
+                print >>output, line
+
     print("\n##### Running Cross Validation for the Margin Perceptron #####\n" )
     results = {}
     margins = [1,0.1,0.01]
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data' ]
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -142,7 +155,7 @@ def crossvalidation_margin():
 def crossvalidation_avg():
     print("\n##### Running Cross Validation for the Average Perceptron #####\n" )
     results = {'1':0,'0.1':0,'0.01':0}
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data' ]
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
@@ -178,9 +191,22 @@ def crossvalidation_avg():
     return best_hyper
 
 def crossvalidation_aggressive():
+    with open('data-splits/data.train','r') as file:
+        data = file.read().split('\n')
+        chunk = len(data)/5
+        for i in range(0,5):
+            if(i!=4):
+              thisChunk = data[i*chunk:(i+1)*chunk]
+            else:
+              thisChunk = data[i*chunk:]
+            #wirte into a file
+            output = open('training0'+str(i)+'.data','w')
+            for line in thisChunk:
+                print >>output, line
+
     print("\n##### Running Cross Validation for the Aggressive Perceptron #####\n" )
     results = {'1':0,'0.1':0,'0.01':0}
-    trainfiles = ['training00.data','training01.data','training02.data','training03.data','training04.data']
+    trainfiles = ['training00.data','training01.data','training02.data','training03.data']
     trainedclassifiers = []
     
     #run the training for one hyper parameter for 10 epochs
